@@ -5,6 +5,7 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -31,7 +32,7 @@ class RabbitConfig(
     }
 
     @Bean
-    fun myRabbitListenerContainerFactory(): SimpleRabbitListenerContainerFactory {
+    fun myRabbitListenerContainerFactory(configurer: SimpleRabbitListenerContainerFactoryConfigurer): SimpleRabbitListenerContainerFactory {
         val factory = SimpleRabbitListenerContainerFactory()
         factory.setConnectionFactory(myFactory())
         factory.setMaxConcurrentConsumers(10)

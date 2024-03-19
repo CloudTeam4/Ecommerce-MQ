@@ -11,6 +11,7 @@ class RabbitService(
 
     @RabbitListener(queues = ["coupon"], containerFactory = "myRabbitListenerContainerFactory")
     fun  receiveMessage(content: String?) {
+        println("receive message")
         val checkedContent = content ?: throw RuntimeException("no content received")
         val (couponId, memberId) = checkedContent.split(" ")
         couponService.afterReceiveMessageHandler(couponId.toLong(), memberId.toLong())
